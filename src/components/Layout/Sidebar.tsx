@@ -1,10 +1,11 @@
+import { type FC } from 'react';
 import Information from '../Icons/Information';
 import Presentation from '../Icons/Presentation';
 import Report from '../Icons/Report';
 import Sections from '../Icons/Sections';
 import Shutdown from '../Icons/Shutdown';
 
-export const Sidebar = () => {
+export const Sidebar: FC = () => {
   return (
     <aside
       id='default-sidebar'

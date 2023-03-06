@@ -1,6 +1,7 @@
+import { type FC } from 'react';
 import EmptyReport from '../Icons/EmptyReport';
 
-export const EmptyContent = () => {
+export const EmptyContent: FC = () => {
   return (
     <div className='mt-24 space-y-4 flex flex-col items-center justify-center w-full'>
       <h1 className='text-xl font-extrabold'>No Reports</h1>

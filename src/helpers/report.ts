@@ -23,6 +23,7 @@ export const groupReportByProject = (reports: IReport[]): GroupedReportsByProjec
 export const groupReportByGateway = (reports: IReport[]): GroupedReportsByGateway => {
   return reports.reduce<GroupedReportsByGateway>((acc, report) => {
     const { gatewayId, projectId, amount } = report;
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!acc[gatewayId]) {
       acc[gatewayId] = {
         projects: [

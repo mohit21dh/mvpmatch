@@ -1,5 +1,4 @@
-import dayjs from 'dayjs';
-import { type FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { type FC, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { getAllGateways, getAllProjects, getReports } from '../../api/mockApi';
 import { type IGateway } from '../../type/gateway';
@@ -43,7 +42,7 @@ export const Main: FC = () => {
     initPayload: selectedFilters,
   });
 
-  const fetchReports = async () => {
+  const fetchReports = async (): Promise<void> => {
     const resp = await getReports(selectedFilters);
     setReports(resp);
   };
@@ -69,7 +68,7 @@ export const Main: FC = () => {
     : 'All Gateways';
 
   const { projects: gatewayProjects, sum: gatewayProjectSum } =
-    groupedGatewayReport[finalGatewayIds[0]] || {};
+    groupedGatewayReport[finalGatewayIds[0]] ?? {};
 
   const showGatewayOfProjects = hasSingleGateway && !hasSingleProject;
   const showOnlyProjects = !hasSingleGateway || hasSingleProject;
@@ -139,7 +138,11 @@ export const Main: FC = () => {
           <button
             type='button'
             className='text-white shadow h-10 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
-            onClick={fetchReports}
+            onClick={() => {
+              fetchReports().catch((err) => {
+                console.error('some error while fetching reports', err);
+              });
+            }}
           >
             Generate report
           </button>
@@ -167,6 +170,7 @@ export const Main: FC = () => {
                 ) as IProject;
                 return (
                   <Accordion
+                    key={projectId}
                     preExpandedIds={index === 0 ? [projectId] : []}
                     items={[
                       {

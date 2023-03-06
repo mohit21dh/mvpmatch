@@ -1,4 +1,12 @@
-import { type FC, forwardRef, type LegacyRef, type ReactNode, useEffect, useState } from 'react';
+import {
+  type FC,
+  forwardRef,
+  type LegacyRef,
+  type ReactNode,
+  useEffect,
+  useState,
+  type ForwardRefExoticComponent,
+} from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { FaCalendar } from 'react-icons/fa';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -12,16 +20,17 @@ export const DatePicker: FC<{
   maxDate?: Date | null;
 }> = ({ placeholder, handleDateChange, dateValue, minDate, maxDate }) => {
   const [date, setDate] = useState<Date | null>(null);
-  const ExampleCustomInput = forwardRef(({ value, onClick }: any, ref) => (
+  const CustomButton: ForwardRefExoticComponent<any> = forwardRef(({ value, onClick }, ref) => (
     <button
       className='w-32 text-white flex items-center h-10 rounded-md px-4 pr-2 bg-[#1BC5BD]'
       onClick={onClick}
       ref={ref as LegacyRef<HTMLButtonElement>}
     >
-      <span>{value || placeholder}</span>
+      <span>{value ?? placeholder}</span>
       <FaCalendar className='ml-auto' />
     </button>
   ));
+  CustomButton.displayName = 'CustomDateButton';
 
   useEffect(() => {
     setDate(dateValue);
@@ -40,7 +49,7 @@ export const DatePicker: FC<{
       onChange={(date) => {
         setDate(date);
       }}
-      customInput={<ExampleCustomInput />}
+      customInput={<CustomButton />}
     />
   );
 };

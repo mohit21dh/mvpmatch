@@ -8,7 +8,10 @@ export function useGetSetData<T, P>({
   initData: T[];
   getterFunction: (payload?: P) => Promise<T[]>;
   initPayload?: P;
-}) {
+}): {
+  data: T[];
+  setData: React.Dispatch<React.SetStateAction<T[]>>;
+} {
   const [data, setData] = useState<T[]>(initData);
 
   const getSetData = useCallback(async () => {
@@ -17,7 +20,9 @@ export function useGetSetData<T, P>({
   }, [initPayload]);
 
   useEffect(() => {
-    getSetData();
+    getSetData().catch((err) => {
+      console.error('some error while get set data', err);
+    });
   }, []);
 
   return {
