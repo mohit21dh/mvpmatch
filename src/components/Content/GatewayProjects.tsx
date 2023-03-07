@@ -33,7 +33,7 @@ export const GatewayProjects: FC<{
         </div>
         <div className='flex rounded-md'>
           <PieChart
-            className='h-80 w-full'
+            className='h-[54vh] w-full'
             data={gatewayProjects?.map((val, index) => {
               return {
                 title: val.value,
