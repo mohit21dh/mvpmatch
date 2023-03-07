@@ -37,7 +37,7 @@ export const GatewayProjects: FC<{
             data={gatewayProjects?.map((val, index) => {
               return {
                 title: val.value,
-                value: Math.floor((val.amount / gatewayProjectSum) * 100),
+                value: Math.round((val.amount / gatewayProjectSum) * 100),
                 color: projectColors[index],
               };
             })}
