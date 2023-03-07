@@ -8,11 +8,11 @@ export const GatewayProjects: FC<{
     value: string;
     amount: number;
   }>;
-  idMapKey: string;
+  idMapCb: (val: any) => string;
   idMap: Record<string, Record<string, any>>;
   gatewayProjectSum: number;
   totalPrefixText: string;
-}> = ({ gatewayProjects, gatewayProjectSum, idMap, idMapKey, totalPrefixText }) => {
+}> = ({ gatewayProjects, gatewayProjectSum, idMap, idMapCb, totalPrefixText }) => {
   console.log('proj are', gatewayProjects, idMap);
   return (
     <div className='w-[45vw] row-span-2 bg-white'>
@@ -27,7 +27,7 @@ export const GatewayProjects: FC<{
                     backgroundColor: projectColors[index],
                   }}
                 />
-                <div>{idMap?.[prj.value]?.[idMapKey]}</div>
+                <div>{idMapCb(idMap[prj.value])}</div>
               </>
             );
           })}

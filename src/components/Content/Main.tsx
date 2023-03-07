@@ -105,14 +105,14 @@ export const Main: FC = () => {
     ? {
         gatewayProjectSum,
         gatewayProjects,
-        idMapKey: 'name',
+        idMapCb: (val: IProject) => val.name,
         idMap: denormalizedProjects,
         totalPrefixText: 'Project',
       }
     : {
         gatewayProjectSum: gatewayGroupedSum,
         gatewayProjects: gatewayProjectsByGateway,
-        idMapKey: 'type',
+        idMapCb: (val: IGateway) => `${val.type} - ${val.name}`,
         idMap: denormalizedGateways,
         totalPrefixText: 'Gateway',
       };
