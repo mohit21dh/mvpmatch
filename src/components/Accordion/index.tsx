@@ -26,7 +26,9 @@ export const Accordion: FC<{
               {heading}
             </ReactAccessibleAccordionItemButton>
           </ReactAccessibleAccordionHeading>
-          <ReactAccessibleAccordionItemPanel>{content}</ReactAccessibleAccordionItemPanel>
+          <ReactAccessibleAccordionItemPanel className='overflow-scroll mt-6'>
+            {content}
+          </ReactAccessibleAccordionItemPanel>
         </ReactAccessibleAccordionItem>
       ))}
     </ReactAccessibleAccordion>

@@ -13,7 +13,6 @@ export const GatewayProjects: FC<{
   gatewayProjectSum: number;
   totalPrefixText: string;
 }> = ({ gatewayProjects, gatewayProjectSum, idMap, idMapCb, totalPrefixText }) => {
-  console.log('proj are', gatewayProjects, idMap);
   return (
     <div className='w-[45vw] row-span-2 bg-white'>
       <>
@@ -34,6 +33,7 @@ export const GatewayProjects: FC<{
         </div>
         <div className='flex rounded-md'>
           <PieChart
+            className='h-80 w-full'
             data={gatewayProjects?.map((val, index) => {
               return {
                 title: val.value,
@@ -43,7 +43,7 @@ export const GatewayProjects: FC<{
             })}
           />
         </div>
-        <div className='flex p-4 mt-8 rounded-lg items-center gap-4 h-16 bg-[#F1FAFE]'>
+        <div className='flex p-4 mt-4 rounded-lg items-center gap-4 h-16 bg-[#F1FAFE]'>
           <div className='font-extrabold flex gap-2'>
             {totalPrefixText} Total | {formatCurrency(gatewayProjectSum)}
           </div>

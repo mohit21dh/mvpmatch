@@ -7,15 +7,29 @@ export const PieChart: FC<{
     value: number;
     color: string;
   }>;
-}> = ({ data }) => {
-  console.log('data is', data);
+  className: string;
+}> = ({ data, className }) => {
   return (
     <ReactMinimalPieChart
+      className={className}
       data={data}
       radius={pieChartDefaultProps.radius - 16}
       lineWidth={60}
       animate
-      segmentsStyle={{ transition: 'stroke .3s', margin: '1rem', cursor: 'pointer' }}
+      label={({ dataEntry }) => `${dataEntry.value} %`}
+      labelStyle={{
+        fontSize: '3.5px',
+        fill: 'white',
+      }}
+      lengthAngle={-360}
+      paddingAngle={1}
+      labelPosition={66}
+      segmentsStyle={{
+        strokeWidth: '10',
+        transition: 'stroke .3s',
+        margin: '1rem',
+        cursor: 'pointer',
+      }}
     />
   );
 };
