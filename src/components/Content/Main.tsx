@@ -66,30 +66,25 @@ export const Main: FC = () => {
   const hasSingleGateway = finalGatewayIds.length === 1;
   const hasSingleProject = finalProjectIds.length === 1;
 
-  const denormalizedProjectNames = projects.reduce((acc, val) => {
+  const denormalizedProjects = projects.reduce<Record<string, IProject>>((acc, val) => {
     return {
       ...acc,
-      [val.projectId]: {
-        name: val.name,
-      },
+      [val.projectId]: val,
     };
   }, {});
 
-  const denormalizedGateway = gateways.reduce((acc, val) => {
+  const denormalizedGateways = gateways.reduce<Record<string, IGateway>>((acc, val) => {
     return {
       ...acc,
-      [val.gatewayId]: {
-        name: val.name,
-        type: val.type,
-      },
+      [val.gatewayId]: val,
     };
   }, {});
 
   const selectedProjectName = hasSingleProject
-    ? projects.find(({ projectId }) => projectId === finalProjectIds[0])?.name
+    ? denormalizedProjects[finalProjectIds[0]]?.name
     : 'All Projects';
   const selectedGatewayName = hasSingleGateway
-    ? gateways.find(({ gatewayId }) => gatewayId === finalGatewayIds[0])?.name
+    ? denormalizedGateways[finalGatewayIds[0]]?.name
     : 'All Gateways';
 
   const { entries: gatewayProjects, sum: gatewayProjectSum } =
@@ -111,14 +106,14 @@ export const Main: FC = () => {
         gatewayProjectSum,
         gatewayProjects,
         idMapKey: 'name',
-        idMap: denormalizedProjectNames,
+        idMap: denormalizedProjects,
         totalPrefixText: 'Project',
       }
     : {
         gatewayProjectSum: gatewayGroupedSum,
         gatewayProjects: gatewayProjectsByGateway,
         idMapKey: 'type',
-        idMap: denormalizedGateway,
+        idMap: denormalizedGateways,
         totalPrefixText: 'Gateway',
       };
 
@@ -215,10 +210,10 @@ export const Main: FC = () => {
             }}
             groupedReports={groupedReports}
             groupedReportsByGatewayId={groupedReportsByGatewayId}
-            projects={projects}
+            projectPropMap={denormalizedProjects}
             viewHeading={`${selectedProjectName ?? ''} | ${selectedGatewayName ?? ''}`}
             finalProjectIds={finalProjectIds}
-            gateways={gateways}
+            gatewayPropMap={denormalizedGateways}
             filterCriteria={{
               hasAllProjectAndGateways,
               hasSingleGatewayAllProject,

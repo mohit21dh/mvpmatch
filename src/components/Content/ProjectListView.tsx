@@ -11,10 +11,10 @@ export const ProjectListView: FC<{
   viewHeading: string;
   layoutAdditionalClasses: Record<string, boolean>;
   finalProjectIds: string[];
-  projects: IProject[];
   groupedReports: GroupedReportsByProject;
   groupedReportsByGatewayId: GroupedReportsByProject;
-  gateways: IGateway[];
+  projectPropMap: Record<string, IProject>;
+  gatewayPropMap: Record<string, IGateway>;
   filterCriteria: {
     hasAllProjectAndGateways: boolean;
     hasSingleGatewayAndProject: boolean;
@@ -25,10 +25,10 @@ export const ProjectListView: FC<{
   viewHeading,
   layoutAdditionalClasses,
   finalProjectIds,
-  projects,
+  projectPropMap,
   groupedReports,
   groupedReportsByGatewayId,
-  gateways,
+  gatewayPropMap,
   filterCriteria,
 }) => {
   const renderTable = (id: string): JSX.Element => {
@@ -40,7 +40,7 @@ export const ProjectListView: FC<{
           rows={groupedReports[id]?.reports?.map((report) => ({
             cols: [
               report.created,
-              gateways.find((gateway) => gateway.gatewayId === report.gatewayId)?.name,
+              gatewayPropMap[report.gatewayId]?.name,
               report.paymentId,
               formatCurrency(report.amount),
             ],
@@ -83,9 +83,7 @@ export const ProjectListView: FC<{
         <div className='self-start font-extrabold'>{viewHeading}</div>
         {iterableIsProject &&
           finalProjectIds.map((pid, index) => {
-            const { name, projectId } = projects.find(
-              (project) => project.projectId === pid,
-            ) as IProject;
+            const { name, projectId } = projectPropMap[pid];
             return filterCriteria.hasAllProjectAndGateways ? (
               <Accordion
                 key={projectId}
@@ -110,10 +108,8 @@ export const ProjectListView: FC<{
             );
           })}
         {!iterableIsProject &&
-          groupedGatewayKeys.map((pid, index) => {
-            const { name, gatewayId } = gateways.find(
-              (gateway) => gateway.gatewayId === pid,
-            ) as IGateway;
+          groupedGatewayKeys.map((gid, index) => {
+            const { name, gatewayId } = gatewayPropMap[gid];
             return filterCriteria.hasSingleProjectAllGateway ? (
               <Accordion
                 key={gatewayId}

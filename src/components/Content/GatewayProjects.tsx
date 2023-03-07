@@ -9,7 +9,7 @@ export const GatewayProjects: FC<{
     amount: number;
   }>;
   idMapKey: string;
-  idMap: Record<string, Record<string, string>>;
+  idMap: Record<string, Record<string, any>>;
   gatewayProjectSum: number;
   totalPrefixText: string;
 }> = ({ gatewayProjects, gatewayProjectSum, idMap, idMapKey, totalPrefixText }) => {
