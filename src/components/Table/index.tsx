@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { type FC, type ReactNode } from 'react';
 
 export const Table: FC<{
@@ -12,7 +13,7 @@ export const Table: FC<{
         <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
           <tr>
             {headers?.map((header, headerIndex) => (
-              <th scope='col' key={headerIndex} className='px-6 py-3'>
+              <th scope='col' key={headerIndex} className='px-6 py-3 bg-white'>
                 {header}
               </th>
             ))}
@@ -20,7 +21,16 @@ export const Table: FC<{
         </thead>
         <tbody>
           {rows?.map((row, rowIndex) => (
-            <tr key={rowIndex} className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
+            <tr
+              key={rowIndex}
+              className={classNames([
+                'border-none',
+                {
+                  'bg-white': rowIndex % 2 === 1,
+                  'bg-transparent': rowIndex % 2 === 0,
+                },
+              ])}
+            >
               {row.cols.map((col, colIndex) => (
                 <th
                   scope='row'

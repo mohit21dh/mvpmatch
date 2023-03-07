@@ -20,7 +20,7 @@ const Header: FC = () => {
               <Hamburger />
             </li>
             <li className='ml-auto items-center inline-flex space-x-2'>
-              <div className='flex flex-col justify-center h-12 w-12 text-lg bg-[#F6CA65] rounded-md text-white'>
+              <div className='flex items-center justify-center h-12 w-12 text-lg bg-[#F6CA65] rounded-md text-white'>
                 JD
               </div>
               <div className='text-[#005B96] font-bold text-md'>John Doe</div>

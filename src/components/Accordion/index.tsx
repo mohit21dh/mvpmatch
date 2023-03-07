@@ -14,19 +14,15 @@ export const Accordion: FC<{
   preExpandedIds?: string[];
 }> = ({ items, preExpandedIds = [] }) => {
   return (
-    <ReactAccessibleAccordion allowZeroExpanded preExpanded={preExpandedIds}>
+    <ReactAccessibleAccordion
+      allowZeroExpanded
+      preExpanded={preExpandedIds}
+      className='border-none'
+    >
       {items.map(({ heading, content, id }) => (
         <ReactAccessibleAccordionItem key={id} uuid={id}>
-          <ReactAccessibleAccordionHeading className='border-none'>
-            <ReactAccessibleAccordionItemButton
-              style={{
-                background: 'white',
-                display: 'flex',
-                alignItems: 'center',
-                borderRadius: '1rem',
-                padding: '1rem',
-              }}
-            >
+          <ReactAccessibleAccordionHeading>
+            <ReactAccessibleAccordionItemButton className='h-20 flex items-center bg-white rounded-xl p-4'>
               {heading}
             </ReactAccessibleAccordionItemButton>
           </ReactAccessibleAccordionHeading>

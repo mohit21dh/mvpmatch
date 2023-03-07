@@ -25,7 +25,7 @@ export type GroupedReportsByProject = Record<
 export type GroupedReportsByGateway = Record<
   string,
   {
-    projects: Array<{
+    entries: Array<{
       value: string;
       amount: number;
     }>;

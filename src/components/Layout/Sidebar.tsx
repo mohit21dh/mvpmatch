@@ -9,7 +9,7 @@ export const Sidebar: FC = () => {
   return (
     <aside
       id='default-sidebar'
-      className='fixed top-16 left-0 z-40 w-16 h-screen transition-transform translate-x-0'
+      className='fixed top-16 left-0 z-40 w-16 transition-transform translate-x-0'
       aria-label='Sidebar'
     >
       <div className='h-full px-3 py-4 overflow-y-auto bg-white'>

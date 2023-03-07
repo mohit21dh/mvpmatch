@@ -4,14 +4,17 @@ import {
   type IReport,
 } from '../type/report';
 
-export const groupReportByProject = (reports: IReport[]): GroupedReportsByProject => {
+export const groupReportByKey = (
+  reports: IReport[],
+  key: 'projectId' | 'gatewayId',
+): GroupedReportsByProject => {
   return reports.reduce<GroupedReportsByProject>((acc, report) => {
-    const { projectId, amount } = report;
-    if (projectId in acc) {
-      acc[projectId].reports.push(report);
-      acc[projectId].sum += amount;
+    const { [key]: activeKey, amount } = report;
+    if (activeKey in acc) {
+      acc[activeKey].reports.push(report);
+      acc[activeKey].sum += amount;
     } else {
-      acc[projectId] = {
+      acc[activeKey] = {
         reports: [report],
         sum: amount,
       };
@@ -26,7 +29,7 @@ export const groupReportByGateway = (reports: IReport[]): GroupedReportsByGatewa
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!acc[gatewayId]) {
       acc[gatewayId] = {
-        projects: [
+        entries: [
           {
             value: projectId,
             amount,
@@ -37,22 +40,61 @@ export const groupReportByGateway = (reports: IReport[]): GroupedReportsByGatewa
       return acc;
     }
 
-    const existingProjectIndex = acc[gatewayId].projects.findIndex(
+    const existingProjectIndex = acc[gatewayId].entries.findIndex(
       (project) => project.value === projectId,
     );
 
     if (existingProjectIndex === -1) {
-      acc[gatewayId].projects.push({
+      acc[gatewayId].entries.push({
         value: projectId,
         amount,
       });
     } else {
-      acc[gatewayId].projects[existingProjectIndex] = {
+      acc[gatewayId].entries[existingProjectIndex] = {
         value: projectId,
-        amount: amount + acc[gatewayId].projects[existingProjectIndex].amount,
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+        amount: amount + acc[gatewayId].entries[existingProjectIndex].amount,
       };
     }
     acc[gatewayId].sum += amount;
+    return acc;
+  }, {});
+};
+
+export const groupReportByProject = (reports: IReport[]): GroupedReportsByGateway => {
+  return reports.reduce<GroupedReportsByGateway>((acc, report) => {
+    const { gatewayId, projectId, amount } = report;
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!acc[projectId]) {
+      acc[projectId] = {
+        entries: [
+          {
+            value: gatewayId,
+            amount,
+          },
+        ],
+        sum: amount,
+      };
+      return acc;
+    }
+
+    const existingGatewayIndex = acc[projectId].entries.findIndex(
+      (gateway) => gateway.value === gatewayId,
+    );
+
+    if (existingGatewayIndex === -1) {
+      acc[projectId].entries.push({
+        value: gatewayId,
+        amount,
+      });
+    } else {
+      acc[projectId].entries[existingGatewayIndex] = {
+        value: gatewayId,
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+        amount: amount + acc[projectId].entries[existingGatewayIndex].amount,
+      };
+    }
+    acc[projectId].sum += amount;
     return acc;
   }, {});
 };

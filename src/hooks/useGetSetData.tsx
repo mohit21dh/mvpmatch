@@ -11,11 +11,15 @@ export function useGetSetData<T, P>({
 }): {
   data: T[];
   setData: React.Dispatch<React.SetStateAction<T[]>>;
+  isLoading: boolean;
 } {
   const [data, setData] = useState<T[]>(initData);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getSetData = useCallback(async () => {
+    setIsLoading(true);
     const projectsData = await getterFunction(initPayload);
+    setIsLoading(false);
     setData(projectsData);
   }, [initPayload]);
 
@@ -28,5 +32,6 @@ export function useGetSetData<T, P>({
   return {
     data,
     setData,
+    isLoading,
   };
 }
