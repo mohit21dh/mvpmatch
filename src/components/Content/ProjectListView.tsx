@@ -76,7 +76,7 @@ export const ProjectListView: FC<{
     <>
       <div
         className={classNames([
-          'flex row-start-1 bg-[#F1FAFE] flex-col space-y-8 rounded-md p-4',
+          'flex row-start-1 bg-[#F1FAFE] mt-6 flex-col space-y-8 rounded-md p-4',
           layoutAdditionalClasses,
         ])}
       >

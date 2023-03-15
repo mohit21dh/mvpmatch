@@ -1,5 +1,5 @@
 .select-container {
-  @apply w-32 h-10 cursor-pointer flex justify-center items-center relative bg-[#1BC5BD] border text-white text-sm rounded-lg p-4;
+  @apply w-full md:w-32 h-10 cursor-pointer flex justify-center items-center relative bg-[#1BC5BD] border text-white text-sm rounded-lg p-4;
   select {
     @apply w-full cursor-pointer appearance-none bg-inherit focus:border-none focus:outline-none;
   }

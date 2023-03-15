@@ -14,7 +14,7 @@ export const GatewayProjects: FC<{
   totalPrefixText: string;
 }> = ({ gatewayProjects, gatewayProjectSum, idMap, idMapCb, totalPrefixText }) => {
   return (
-    <div className='w-[45vw] row-span-2 bg-white'>
+    <div className='w-full mt-6 md:w-[45vw] row-span-2 bg-white'>
       <>
         <div className='flex p-4 rounded-lg items-center gap-4 h-16 bg-[#F1FAFE]'>
           {gatewayProjects?.map((prj, index) => {

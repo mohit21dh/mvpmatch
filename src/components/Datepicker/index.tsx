@@ -22,7 +22,7 @@ export const DatePicker: FC<{
   const [date, setDate] = useState<Date | null>(null);
   const CustomButton: ForwardRefExoticComponent<any> = forwardRef(({ value, onClick }, ref) => (
     <button
-      className='w-32 text-white flex items-center h-10 rounded-md px-4 pr-2 bg-[#1BC5BD]'
+      className='w-full md:w-32 text-white flex items-center h-10 rounded-md px-4 pr-2 bg-[#1BC5BD]'
       onClick={onClick}
       ref={ref as LegacyRef<HTMLButtonElement>}
     >

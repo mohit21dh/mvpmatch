@@ -119,9 +119,9 @@ export const Main: FC = () => {
 
   return (
     <main className='ml-20 mt-4'>
-      <div className='grid justify-items-start grid-cols-3 grid-rows-2'>
-        <div className='row-start-1 col-span-1 text-xl font-extrabold'>Reports</div>
-        <div className='row-start-1 col-start-2 col-span-2 w-full pr-4 justify-end flex gap-2'>
+      <div className='flex flex-col items-center md:flex-row gap-2'>
+        <div className='text-xl font-extrabold'>Reports</div>
+        <div className='w-full pr-4 justify-end flex items-center flex-col md:flex-row gap-2'>
           <Select
             options={projects.map((project) => ({
               label: project.name,
@@ -182,7 +182,7 @@ export const Main: FC = () => {
 
           <button
             type='button'
-            className='text-white shadow h-10 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+            className='text-white w-full md:w-40 shadow h-10 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
             onClick={() => {
               fetchReports().catch((err) => {
                 console.error('some error while fetching reports', err);
@@ -192,14 +192,14 @@ export const Main: FC = () => {
             Generate report
           </button>
         </div>
-        <div className='row-start-2 col-span-1'>Easily generate a report of your transactions</div>
       </div>
+      <div className='self-start'>Easily generate a report of your transactions</div>
       {reports.length > 0 ? (
         <div
           className={classNames([
             'grid grid-rows-2 gap-2',
             {
-              'grid-cols-2': showGatewayOfProjects,
+              'grid-cols-1 md:grid-cols-2': showGatewayOfProjects,
               'grid-cols-1': showOnlyProjects,
             },
           ])}
